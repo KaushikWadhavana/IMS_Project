@@ -1,0 +1,14 @@
+{
+  "name": "ipl",
+  "version": "1.0.0",
+  "description": "this is ipl",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "author": "kaushik",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

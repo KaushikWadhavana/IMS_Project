@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player - IPL Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="signup.html">User</a></li>
+        <li><a href="player.html">Player</a></li>
+        <li><a href="team.html">Team</a></li>
+    </ul>
+</nav>
+
+<form action="http://127.0.0.1:8000/player" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Enter name" required /><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Enter email" required /><br><br>
+
+    <label for="runs">Runs:</label>
+    <input type="number" id="runs" placeholder="Enter runs" required /><br><br>
+
+    <label for="state">State:</label>
+    <input type="text" id="state" placeholder="Enter state" required /><br><br>
+
+    <label for="wickets">Wickets:</label>
+    <input type="number" id="wickets" placeholder="Enter wickets" required /><br><br>
+
+    <label for="catches">Catches:</label>
+    <input type="number" id="catches" placeholder="Enter catches" required /><br><br>
+
+    <label for="match">Match:</label>
+    <input type="number" id="match" placeholder="Match" required /><br><br>
+
+    <input type="submit" value="Save" />
+</form>
+</body>
+</html>
