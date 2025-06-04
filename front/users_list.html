@@ -8,9 +8,70 @@
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
   />
-    
+  <link rel="stylesheet", href="style.css">
+    <style>
+  h1 {
+    text-align: center;
+    color: #004085;
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+#userList {
+    max-width: 700px;
+    margin: 40px auto 0; /* separate from navbar and heading */
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;  /* stack items vertically */
+    gap: 20px;
+}
+
+#userList li {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 25px 30px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+}
+
+#userList li:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+#userList li strong {
+    color: #007bff;
+    display: inline-block;
+    width: 80px;
+}
+
+#userList li div {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+#userList li:last-child {
+    margin-bottom: 0;
+}
+
+</style>
+
 </head>
 <body>
+<nav>
+    <ul>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="player.html">Player</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="users_list.html">Users List</a></li>
+    </ul>
+</nav>
+
    <h1>Below is User List</h1>
 
   <ul id="userList"></ul> <!-- No class used -->
@@ -27,11 +88,11 @@
   userList.innerHTML += `
     <li>
       
-      <strong>Name:</strong> ${datafrom[i].name} <br>
-      <strong>Email:</strong> ${datafrom[i].email} <br>
-      <strong>Phone:</strong> ${datafrom[i].phone} <br>
-      <strong>Password:</strong> ${datafrom[i].pass}
-    </li><hr>`;
+      <div><strong>Name:</strong> ${datafrom[i].name} </div>
+      <div><strong>Email:</strong> ${datafrom[i].email} </div>
+      <div><strong>Phone:</strong> ${datafrom[i].phone} </div>
+      <div><strong>Password:</strong> ${datafrom[i].pass}</div>
+    </li>`;
 }
 
   })

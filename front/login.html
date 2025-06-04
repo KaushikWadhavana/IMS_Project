@@ -7,31 +7,31 @@
     <title>Signup - IPL Management System</title>
     <link rel="stylesheet" href="style.css" />
     <script>
-        async function createAccount() {
-            const name = document.getElementById("name").value;
+        async function login() {
             const email = document.getElementById("email").value;
-            const phone = document.getElementById("phone").value;
             const password = document.getElementById("password").value;
 
-            if (!name || !email || !phone || !password) {
+            if (!email || !password) {
                 alert("All fields are required!");
                 return;
             }
 
-            const response = await fetch("http://127.0.0.1:8000/users", {
+            const response = await fetch("http://127.0.0.1:8000/token", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ name, email, phone, password })
+                body: JSON.stringify({ email, password })
             });
 
             const result = await response.json();
-            if (result.message) {
-                alert("Response from server:\n" + result.message);
-            } else if (result.error) {
-                alert("Response from server:\n" + result.error);
-            } 
+            if (response.status == 200 && result.token) {
+                localStorage.setItem("authToken", result.token);
+
+              window.location.href = "dashboard.html"; 
+            } else if (response.status == 400 && result.error) {
+                alert("Login Failed!\n" + result.error);
+            }
             //   document.getElementById("response").innerText = JSON.stringify(result);
         }
     </script>
@@ -45,25 +45,20 @@
             <li><a href="player.html">Player</a></li>
             <li><a href="team.html">Team</a></li>
             <li><a href="users_list.html">Users List</a></li>
-            
-            
+
         </ul>
     </nav>
 
     <div id="signup-container">
-        <label for="name">Name:</label>
-        <input type="text" id="name" placeholder="Enter name" required /><br /><br />
 
         <label for="email">Email:</label>
         <input type="email" id="email" placeholder="Enter email" required /><br /><br />
 
-        <label for="phone">Phone Number:</label>
-        <input type="number" id="phone" placeholder="Enter phone number" required /><br /><br />
 
         <label for="password">Password:</label>
         <input type="password" id="password" placeholder="Enter password" required /><br /><br />
 
-        <button onclick="createAccount()">Create Account</button>
+        <button onclick="login()">login</button>
     </div>
 
     <p id="response"></p>
