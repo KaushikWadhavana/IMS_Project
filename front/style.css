@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #f5f7fa;
     margin: 0;
@@ -118,7 +118,139 @@ form input[type="submit"]:hover {
   transition: background-color 0.3s ease;
 }
 
+
 #signup-container button:hover {
   background-color: #004d99;
+} */
+/* Reset & base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Container */
+#signup-container {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  animation: slideUp 0.6s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Labels */
+#signup-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Inputs */
+#signup-container input[type="email"],
+#signup-container input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+#signup-container input:focus {
+  border-color: #2196f3;
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+  outline: none;
+}
+
+/* Button */
+#signup-container button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#signup-container button:hover {
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  transform: scale(1.02);
+}
+
+#signup-container button:active {
+  transform: scale(0.97);
+}
+
+/* Response */
+#response {
+  margin-top: 15px;
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+/* Mobile Friendly */
+@media (max-width: 480px) {
+  #signup-container {
+    padding: 30px 20px;
+  }
+}
+.form-title {
+  text-align: center;
+  font-size: 24px;
+  color: #1976d2;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+.ipl-logo {
+  display: block;
+  margin: 30px auto 20px auto;
+  max-width: 150px;
+  height: auto;
+  background-color: #003366; /* blue background */
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.ipl-logo:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 

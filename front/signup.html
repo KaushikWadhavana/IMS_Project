@@ -2,71 +2,213 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Signup - IPL Management System</title>
-    <link rel="stylesheet" href="style.css" />
-    <script>
-        async function createAccount() {
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const phone = document.getElementById("phone").value;
-            const password = document.getElementById("password").value;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signup - IPL Management System</title>
 
-            if (!name || !email || !phone || !password) {
-                alert("All fields are required!");
-                return;
-            }
+  <style>
+    /* Reset some basics */
+    * {
+      box-sizing: border-box;
+    }
 
-            const response = await fetch("http://127.0.0.1:8000/users", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ name, email, phone, password })
-            });
+  body {
+  background: url('images/back.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-            const result = await response.json();
-            if (result.message) {
-                alert("Response from server:\n" + result.message);
-            } else if (result.error) {
-                alert("Response from server:\n" + result.error);
-            } 
-            //   document.getElementById("response").innerText = JSON.stringify(result);
-        }
-    </script>
+  #signup-container {
+    max-width: 420px;
+    padding: 40px 35px;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 10px 20px rgba(111, 0, 255, 0.25), 0 4px 6px rgba(0, 195, 255, 0.15);
+    text-align: center;
+  }
+  
+  .ipl-logo {
+    width: 180px;
+    margin: 0 auto 25px;
+    display: block;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .ipl-logo:hover {
+    transform: scale(1.05);
+  }
+
+    #signup-container:hover {
+      box-shadow:
+        0 12px 22px rgba(111, 0, 255, 0.35),
+        0 6px 10px rgba(0, 195, 255, 0.25);
+    }
+
+    h5 {
+      font-size: 1.6rem;
+      margin-bottom: 35px;
+      font-weight: 700;
+      color: #4a00e0;
+      letter-spacing: 0.04em;
+      user-select: none;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #4a00e0;
+      user-select: none;
+      letter-spacing: 0.02em;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 35px;
+      border: 2px solid #ccc;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline-offset: 2px;
+      outline-color: transparent;
+      outline-style: solid;
+    }
+
+    .form-control::placeholder {
+      color: #aaa;
+      font-weight: 400;
+    }
+
+    .form-control:focus {
+      border-color: #4a00e0;
+      box-shadow: 0 0 10px rgba(74, 0, 224, 0.5);
+      outline-color: #4a00e0;
+    }
+
+    .btn-signup {
+      background: linear-gradient(45deg, #ff512f, #dd2476);
+      color: white;
+      font-weight: 700;
+      border-radius: 35px;
+      padding: 14px 0;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      letter-spacing: 0.05em;
+      box-shadow: 0 5px 15px rgba(221, 36, 118, 0.4);
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+      user-select: none;
+    }
+
+    .btn-signup:hover {
+      box-shadow: 0 8px 20px rgba(221, 36, 118, 0.65);
+      transform: translateY(-3px);
+    }
+
+ 
+    .btn-login-link {
+        margin-top: 10px;  
+  background: transparent;
+  color: #4a00e0;
+  border: 2px solid #4a00e0;
+  border-radius: 35px;
+  padding: 12px 0;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+}
+
+.btn-login-link:hover {
+  background-color: #4a00e0;
+  color: white;
+}
+.logo-wrapper {
+  background: linear-gradient(135deg, #6f00ff, #00c3ff);
+  padding: 10px;
+  border-radius: 30px;
+}
+
+
+  </style>
+
+  <script>
+    async function createAccount() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!name || !email || !phone || !password) {
+        alert("All fields are required!");
+        return;
+      }
+
+      const response = await fetch("http://127.0.0.1:8000/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, password }),
+      });
+
+      const result = await response.json();
+      if (result.message) {
+        alert("Response from server:\n" + result.message);
+      } else if (result.error) {
+        alert("Response from server:\n" + result.error);
+      }
+    }
+  </script>
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="signup.html">Sign Up</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="player.html">Player</a></li>
-            <li><a href="team.html">Team</a></li>
-            <li><a href="users_list.html">Users List</a></li>
-            
-            
-        </ul>
-    </nav>
+  <div id="signup-container">
+       <div class="logo-wrapper">
+    <img src="images/logo.png" />
+  </div>
+    <h5>Create your IPL Account</h5>
 
-    <div id="signup-container">
-        <label for="name">Name:</label>
-        <input type="text" id="name" placeholder="Enter name" required /><br /><br />
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" placeholder="Enter email" required /><br /><br />
-
-        <label for="phone">Phone Number:</label>
-        <input type="number" id="phone" placeholder="Enter phone number" required /><br /><br />
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" placeholder="Enter password" required /><br /><br />
-
-        <button onclick="createAccount()">Create Account</button>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" class="form-control" placeholder="Enter your name" required />
     </div>
 
-    <p id="response"></p>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" class="form-control" placeholder="Enter your email" required />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" class="form-control" placeholder="Enter your password" required />
+    </div>
+
+    <button class="btn-signup" onclick="createAccount()">Create Account</button>
+    <button class="btn-login-link" onclick="window.location.href='login.html'">
+  Already have an account?
+</button>
+ 
+  </div>
 </body>
 
 </html>

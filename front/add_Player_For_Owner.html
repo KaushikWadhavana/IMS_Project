@@ -110,14 +110,14 @@ input[type="submit"]:hover {
     async function addPlayer() {
       const name = document.getElementById("name").value.trim();
       const email = document.getElementById("email").value.trim();
-         const team = document.getElementById("team").value.trim();
+       const team = document.getElementById("team").value.trim();
       const runs = document.getElementById("runs").value.trim();
       const state = document.getElementById("state").value.trim();
       const wickets = document.getElementById("wickets").value.trim();
       const catches = document.getElementById("catches").value.trim();
       const match = document.getElementById("match").value.trim();
 
-      if (!name || !email || !runs || !state || !wickets || !catches || !match) {
+      if (!name || !email || !team || !runs || !state || !wickets || !catches || !match) {
         alert("All fields are required!");
         return;
       }
@@ -142,7 +142,7 @@ input[type="submit"]:hover {
           localStorage.setItem("playerEmail", email);
 
         alert("Server Response:\n" + result.message);
-       
+     
       } else if (result.error) {
         alert("Response from server:\n" + result.error);
       }
@@ -163,6 +163,7 @@ input[type="submit"]:hover {
       <label for="email">Email:</label>
       <input type="email" id="email" class="form-control" placeholder="Enter email" required />
     </div>
+
     <div class="form-group mb-3">
       <label for="team">Team:</label>
       <input type="text" id="team" class="form-control" placeholder="Enter team" required />
@@ -194,7 +195,7 @@ input[type="submit"]:hover {
     </div>
 
     <button class="btn btn-primary w-100" onclick="addPlayer()">Save Player</button>
-        <button class="btn-back" onclick="window.location.href='admin_dashboard.html'">Back to Dashboard</button>
+        <button class="btn-back" onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
 
   </div>
 </body>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Team Details - IPL Management System</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #e0f7fa, #ffffff);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        #team-details {
+            background: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 30px 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            color: #0056b3;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .field {
+            margin-bottom: 18px;
+            font-size: 1.1rem;
+        }
+
+        .field span {
+            font-weight: 600;
+            color: #003366;
+        }
+        
+    .btn-back {
+      background-color: #00897b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 500;
+      border-radius: 8px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-back:hover {
+      background-color: #00695c;}
+    </style>
+</head>
+
+<body>
+    <div id="team-details">
+        <h2>Team Details</h2>
+        <div class="field">Team Name: <span id="teamName"></span></div>
+        <div class="field">Hometown: <span id="hometown"></span></div>
+        <div class="field">Slogan: <span id="slogan"></span></div>
+        <div class="field">Owner Email: <span id="ownerEmail"></span></div>
+          <button class="btn-back" onclick="window.location.href='teams.html'">Back To Playes List</button>
+ 
+    </div>
+
+    <script>
+      
+       async function loadTeam() {
+  const email = localStorage.getItem("ownerEmail");
+  if (!email) {
+    alert("No owner email found in storage.");
+    window.location.href = "teams.html"
+    return;  // no redirect, just stop here
+  }
+
+  const response = await fetch("http://127.0.0.1:8000/team_by_owner", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Owner-Email": email
+    }
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    document.getElementById("teamName").textContent = data.team_name;
+    document.getElementById("hometown").textContent = data.hometown;
+    document.getElementById("slogan").textContent = data.slogan;
+    document.getElementById("ownerEmail").textContent = data.owner_email;
+  } else {
+    // Show error alert but DO NOT redirect
+    alert("Error: " + data.error);
+  }
+}
+
+loadTeam();
+    </script>
+</body>
+
+</html>

@@ -8,69 +8,58 @@
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
   />
-  <link rel="stylesheet", href="style.css">
     <style>
-  h1 {
-    text-align: center;
-    color: #004085;
-    margin-bottom: 40px;
-    font-weight: 700;
-    font-size: 2.5rem;
-}
+ body {
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 30px;
+    }
 
-#userList {
-    max-width: 700px;
-    margin: 40px auto 0; /* separate from navbar and heading */
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;  /* stack items vertically */
-    gap: 20px;
-}
+    h1 {
+      text-align: center;
+      color: #0056b3;
+      margin-bottom: 40px;
+      font-weight: 700;
+    }
 
-#userList li {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    padding: 25px 30px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: default;
-}
+    #userList {
+      max-width: 800px;
+      margin: auto;
+      padding: 0;
+    }
 
-#userList li:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-}
+    #userList li {
+      list-style: none;
+      background: #ffffff;
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      padding: 20px 25px;
+      margin-bottom: 20px;
+      transition: 0.2s ease-in-out;
+    }
 
-#userList li strong {
-    color: #007bff;
-    display: inline-block;
-    width: 80px;
-}
+    #userList li:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
 
-#userList li div {
-    margin-bottom: 12px;
-    font-size: 1.1rem;
-    line-height: 1.4;
-}
+    #userList li div {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
 
-#userList li:last-child {
-    margin-bottom: 0;
-}
+    #userList li strong {
+      color: #007bff;
+      width: 100px;
+      display: inline-block;
+    }
 
 </style>
 
 </head>
 <body>
-<nav>
-    <ul>
-        <li><a href="signup.html">Sign Up</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="player.html">Player</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="users_list.html">Users List</a></li>
-    </ul>
-</nav>
+
 
    <h1>Below is User List</h1>
 

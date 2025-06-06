@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - IPL Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  /* Page background and font */
+  body {
+    background: linear-gradient(to right, #e0f7fa, #ffffff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+  }
+
+  /* Navbar styling */
+  .navbar {
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+    padding: 12px 20px;
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.7rem;
+    color: #ffffff !important;
+  }
+
+  /* Card container */
+  .card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+    height: 100%;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-body {
+    padding: 1.8rem;
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #003366;
+    margin-bottom: 0.4rem;
+  }
+
+  .card-subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    font-style: italic;
+    margin-bottom: 1rem;
+    color: #6c757d;
+  }
+
+  .card-text {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  /* Make anchor tags wrap full column */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Responsive padding fix for small screens */
+  @media (max-width: 576px) {
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+  <div class="container-fluid">
+    <span class="navbar-brand fs-4 fw-semibold">🏏 IPL Management System</span>
+    <a href="dashboard.html"><span class="ms-auto text-white fs-6">Dashboard</span></a>
+  </div>
+</nav>
+
+  <div class="container mt-5">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+      
+      <a href="player.html">
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">Player</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Player Details</h6>
+              <p class="card-text">View and manage individual player profiles, stats, and bio information.</p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="team.html">
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Teams</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Team Overview</h6>
+            <p class="card-text">add teams, their slogan, team state, and owner.</p>
+          </div>
+        </div>
+      </div>
+      </a>
+
+      
+      
+
+    </div>
+  </div>
+</body>
+</html>

@@ -5,91 +5,170 @@
   <title>Dashboard - IPL Management System</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<script>
-        async function roles() {
-        
+  <style>
+    body {
+      background: linear-gradient(135deg, #e3f2fd, #ffffff);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+    }
 
-            const response = await fetch("http://127.0.0.1:8000/users/roles", {
-                
-                
-                    token: localStorage.getItem("authToken")
-                
-               
-            });
+    .navbar {
+      box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+      padding: 12px 20px;
+    }
 
-            const result = await response.json();
-            if (response.status == 200 )
-             {
-                localStorage.setItem("authToken", result.token);
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.7rem;
+      color: #ffffff !important;
+    }
 
-              window.location.href = "dashboard.html"; 
-            } else if (response.status == 400 && result.error) {
-                alert("Login Failed!\n" + result.error);
-            }
-            //   document.getElementById("response").innerText = JSON.stringify(result);
+    .card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-color: #ffffff;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-body {
+      padding: 1.8rem;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-subtitle {
+      font-size: 1rem;
+      font-weight: 500;
+      font-style: italic;
+      margin-bottom: 1rem;
+      color: #6c757d;
+    }
+
+    .card-text {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    a{
+    text-decoration: none;
+      color: inherit;
+    }
+     
+
+
+    @media (max-width: 576px) {
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  </style>
+
+  <script>
+    async function roles() {
+      const response = await fetch("http://127.0.0.1:8000/users/roles", {
+        headers: {
+          "token": localStorage.getItem("authToken")
         }
-        roles()
-    </script>
+      });
+
+      const result = await response.json();
+      if (response.status == 200) {
+        if (result.is_admin === false) {
+          document.getElementById("adminCard").style.display = "none";
+        }
+
+        if (result.owner_of === false) {
+          document.getElementById("ownerCard").style.display = "none";
+        }
+      } else {
+        alert("Bad Request (400)\n" + result.error);
+      }
+    }
+
+    roles();
+  </script>
 </head>
+
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-  <div class="container-fluid">
-    <span class="navbar-brand fs-4 fw-semibold">🏏🏆 IPL Management System</span>
-    <span class="ms-auto text-white fs-6">Dashboard</span>
-  </div>
-</nav>
+    <div class="container-fluid">
+      <span class="navbar-brand fs-4 fw-semibold">🏏 IPL Management System</span>
+     <a href="login.html"><span class="ms-auto text-white fs-6">Logout</span></a>
+    </div>
+  </nav>
 
-  <div class="container mt-5">
+  <div class="container mt-5 px-3 px-md-4">
     <div class="row row-cols-1 row-cols-md-2 g-4">
 
       <!-- Player Card -->
       <div class="col">
         <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">Player</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Player Details</h6>
-            <p class="card-text">View and manage individual player profiles, stats, and bio information.</p>
-          </div>
+          <a href="players.html" class="text-decoration-none">
+            <div class="card-body">
+              <h5 class="card-title">Player</h5>
+              <h6 class="card-subtitle mb-2 text-muted">See players</h6>
+              <p class="card-text">View individual player profiles, stats, and bio information.</p>
+            </div>
+          </a>
         </div>
       </div>
 
       <!-- Teams Card -->
       <div class="col">
         <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">Teams</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Team Overview</h6>
-            <p class="card-text">Explore all registered teams, their players, team logos, and rankings.</p>
-          </div>
+          <a href="teams.html" class="text-decoration-none">
+            <div class="card-body">
+              <h5 class="card-title">Teams</h5>
+              <h6 class="card-subtitle mb-2 text-muted">See Team Overview</h6>
+              <p class="card-text">Team owners and team structures.</p>
+            </div>
+          </a>
         </div>
       </div>
 
-      <!-- Manage Team Card -->
-      <div class="col">
+      <!-- Owner Card -->
+      <div class="col" id="ownerCard">
         <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">Manage Team</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Team Owner Tools</h6>
-            <p class="card-text">As a team owner, you can update your roster, player roles, and team details.</p>
-          </div>
+          <a href="add_Player_For_Owner.html" class="text-decoration-none">
+            <div class="card-body">
+              <h5 class="card-title">Manage Team</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Team Owners</h6>
+              <p class="card-text">You can add team players here.</p>
+            </div>
+          </a>
         </div>
       </div>
 
-      <!-- Manage Admin Card -->
-      <div class="col">
+      <!-- Admin Card -->
+      <div class="col" id="adminCard">
         <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">Manage Admin</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Admin Panel</h6>
-            <p class="card-text">Admins can oversee teams, verify ownership, and maintain league structure.</p>
-          </div>
+          <a href="admin_dashboard.html" class="text-decoration-none">
+            <div class="card-body">
+              <h5 class="card-title">Manage Admin</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Admin Panel</h6>
+              <p class="card-text">Admins can add teams, add players, and manage the system.</p>
+            </div>
+          </a>
         </div>
       </div>
 
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

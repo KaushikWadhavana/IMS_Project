@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Players</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+       .btn-primary {
+      background-color: #0056b3;
+      border: none;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #003f88;
+    }
+  body {
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 30px;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #0056b3;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  width: 18rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #e6e6e6;
+  transition: filter 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  filter: brightness(0.9);
+}
+
+.card-body {
+  padding: 18px 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #003366;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 8px;
+  word-wrap: break-word;
+}
+
+.card-text a {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.card-text a:hover {
+  text-decoration: underline;
+}
+
+.btn-primary {
+  background-color: #0056b3;
+  border: none;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 86, 179, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #003f88;
+  box-shadow: 0 6px 12px rgba(0, 63, 136, 0.5);
+  outline: none;
+}
+    
+    .btn-back {
+      
+      background-color: #00897b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 500;
+      border-radius: 8px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-back:hover {
+      background-color: #00695c;
+    }
+    
+
+  </style>
+
+  <script>
+    async function getPlayers() {
+      const response = await fetch("http://127.0.0.1:8000/players");
+      const result = await response.json();
+
+      if (response.status === 200) {
+        const list = document.getElementById("list");
+
+        for (let i = 0; i < result.length; i++) {
+          const player = result[i];
+          const playerCard = `
+            <div class="card" style="width: 18rem; margin: 10px;">
+              <img class="card-img-top" src="${player.profile_image}" alt="${player.name} Profile Image">
+              <div class="card-body">
+                <h2 class="card-title">${player.name}</h2>
+                <p class="card-text">Phone: ${player.phone}</p>
+                <p class="card-text">Email: ${player.email}</p>
+              <button class="btn btn-primary mt-2" onclick="verifyPlayer('${player.email}')">View Profile</button>
+              </div>
+            </div>
+          `;
+          list.innerHTML += playerCard;
+        }
+      } else {
+        alert("Bad Request (400)\n" + result.error);
+      }
+    }
+    async function verifyPlayer(email) {
+    const response = await fetch("http://127.0.0.1:8000/player_detail", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "player-email": email
+      }
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.email === email) {
+      localStorage.setItem("playerEmail", email);
+      window.location.href = "view_player.html";
+    } else {
+      alert("data not found.");
+    }
+  }
+
+
+    getPlayers();
+  </script>
+</head>
+<body>
+  <div style="text-align:center; color:#0056b3; margin-bottom: 30px;">
+    <h1>Players List</h1>
+  </div>
+
+  <div id="list" aria-live="polite" aria-label="List of players"></div>
+  <center>
+    <button class="btn-back" onclick="window.location.href='dashboard.html'">Back To Dashboard</button>
+</center>
+</body>
+</html>

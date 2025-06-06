@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Player Details - IPL Management System</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f2f1, #ffffff);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #player-details {
+      background: #fff;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 30px 40px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      color: #00796b;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+      font-size: 1.05rem;
+      color: #333;
+    }
+
+    .field span {
+      font-weight: 600;
+      color: #004d40;
+    }
+
+    .btn-back {
+      background-color: #00897b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 500;
+      border-radius: 8px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-back:hover {
+      background-color: #00695c;
+    }
+    
+  </style>
+</head>
+<body>
+  <div id="player-details">
+    <h2>Player Details</h2>
+    <div class="field">Name: <span id="playerName"></span></div>
+    <div class="field">Email: <span id="playerEmail"></span></div>
+    <div class="field">Team: <span id="team"></span></div>  
+    <div class="field">Runs: <span id="runs"></span></div>
+    <div class="field">State: <span id="state"></span></div>
+    <div class="field">Wickets: <span id="wickets"></span></div>
+    <div class="field">Catches: <span id="catches"></span></div>
+    <div class="field">Matches: <span id="matches"></span></div>
+    <button class="btn-back" onclick="window.location.href='Players.html'">Back To Playes List</button>
+  </div>
+
+  <script>
+    async function loadPlayer() {
+      const email = localStorage.getItem("playerEmail");
+
+      if (!email) {
+        alert("No player email found.");
+        window.location.href = "admin_dashboard.html";
+        return;
+      }
+
+      const response = await fetch("http://127.0.0.1:8000/player_detail", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "player-email": email  // matches backend
+        }
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        document.getElementById("playerName").textContent = result.name || "N/A";
+        document.getElementById("playerEmail").textContent = result.email || "N/A";
+        document.getElementById("team").textContent = result.team || "N/A";
+          document.getElementById("runs").textContent = result.runs || "0";
+        document.getElementById("state").textContent = result.state || "N/A";
+        document.getElementById("wickets").textContent = result.wickets || "0";
+        document.getElementById("catches").textContent = result.catches || "0";
+        document.getElementById("matches").textContent = result.match || "0";
+      } else {
+        alert("Error: " + result.error);
+      }
+    }
+
+    loadPlayer();
+  </script>
+</body>
+</html>
